@@ -1,8 +1,45 @@
 import 'package:flutter/material.dart';
 
+class Service {
+  final String name;
+  final String image;
+  final double price;
+  final Duration duration;
+
+  Service(
+      {required this.name,
+      required this.image,
+      required this.price,
+      required this.duration});
+}
+
+class ServiceList extends StatelessWidget {
+  final List<Service> services;
+
+  ServiceList({required this.services});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: services.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          leading: Image.asset(services[index].image),
+          title: Text(services[index].name),
+          subtitle: Text(
+              'R\$${services[index].price} - ${services[index].duration.inMinutes} minutos'),
+          trailing: ElevatedButton(
+            onPressed: () {},
+            child: Text('Agendar agora'),
+          ),
+        );
+      },
+    );
+  }
+}
+
 class SalaoPage extends StatefulWidget {
   const SalaoPage({Key? key}) : super(key: key);
-
   @override
   State<SalaoPage> createState() => _SalaoPageState();
 }
@@ -78,6 +115,7 @@ class _SalaoPageState extends State<SalaoPage> {
           SizedBox(height: 20),
           Expanded(
             child: Container(
+              // Serviços (5)
               color: Colors.white,
               width: MediaQuery.of(context).size.width,
               child: Padding(
@@ -94,7 +132,49 @@ class _SalaoPageState extends State<SalaoPage> {
                       ),
                     ),
                     SizedBox(height: 10),
-                    _buildSearchBar,
+                    Positioned(right: 20, child: _buildSearchBar),
+                    Expanded(
+                      child: ServiceList(
+                        services: [
+                          Service(
+                            name: 'Corte de cabelo',
+                            image:
+                                'assets/imagens/cliente-de-grooming-mulher-na-barbearia.jpg',
+                            price: 25.0,
+                            duration: Duration(minutes: 30),
+                          ),
+                          Service(
+                            name: 'Barba',
+                            image:
+                                'assets/imagens/cliente-de-grooming-mulher-na-barbearia.jpg',
+                            price: 15.0,
+                            duration: Duration(minutes: 20),
+                          ),
+                          Service(
+                            name: 'Corte de cabelo + Barba',
+                            image:
+                                'assets/imagens/cliente-de-grooming-mulher-na-barbearia.jpg',
+                            price: 35.0,
+                            duration: Duration(minutes: 50),
+                          ),
+                          Service(
+                            name: 'Corte de cabelo + Barba + Bigode',
+                            image:
+                                'assets/imagens/cliente-de-grooming-mulher-na-barbearia.jpg',
+                            price: 40.0,
+                            duration: Duration(minutes: 60),
+                          ),
+                          Service(
+                            name:
+                                'Corte de cabelo + Barba + Bigode + Sombrancelha',
+                            image:
+                                'assets/imagens/cliente-de-grooming-mulher-na-barbearia.jpg',
+                            price: 45.0,
+                            duration: Duration(minutes: 70),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -217,15 +297,17 @@ class _SalaoPageState extends State<SalaoPage> {
   );
 
   Widget _buildSearchBar = Container(
-    height: 30,
-    margin: EdgeInsets.symmetric(horizontal: 20),
-    child: Center(
-      child: TextField(
-        decoration: InputDecoration(
-          hintText: "Pesquise por um serviço...",
-          hintStyle: TextStyle(color: Color(0xFF191D32)),
-          border: OutlineInputBorder(),
-        ),
+    height: 50,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(25),
+      color: Colors.grey[200],
+    ),
+    child: TextField(
+      decoration: InputDecoration(
+        hintText: "Pesquise por um serviço...",
+        hintStyle: TextStyle(color: Colors.grey[500]),
+        border: InputBorder.none,
+        contentPadding: EdgeInsets.all(15),
       ),
     ),
   );
