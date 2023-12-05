@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/login_page.dart';
 import 'package:my_app/salao_page.dart';
+import 'package:my_app/dashBoard.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,8 +16,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(primarySwatch: Colors.deepPurple),
-      home: SalaoPage(),
+      // home: SalaoPage(),
       // home: LoginPage(),
+      home: Dashboard(),
       debugShowCheckedModeBanner: false,
     );
   }
